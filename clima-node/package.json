@@ -1,6 +1,6 @@
 {
   "name": "@nicholasoxford/clima-node",
-  "version": "1.0.4",
+  "version": "1.0.0",
   "description": "A CLI to get weather data for your state.",
   "main": "src/index.js",
   "bin": {
@@ -16,11 +16,6 @@
   "keywords": [
     "cli",
     "clima-node"
-  ],
-  "files": [
-    "bin/",
-    "src/",
-    "src/json/"
   ],
   "author": "Nicholas Oxford",
   "license": "ISC",

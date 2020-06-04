@@ -4,7 +4,6 @@ import { filterJson, compareData } from "./jsonConvert";
 import { downloadJson } from "./jsonCRUD";
 import { get_clima } from "./climaCall";
 import { simpleStats } from "./stats";
-import chalk from "chalk";
 function parseArgumentsIntoOptions(rawArgs) {
   const args = arg(
     {
@@ -116,18 +115,8 @@ export async function cli(args) {
   let options = parseArgumentsIntoOptions(args);
   options = await promptForMissingOptions(options);
   await downloadJson(options.state);
-  let scrubedJSON = await filterJson("clima-node/src/json/website.json");
-  if (scrubedJSON) {
-    await compareData(scrubedJSON);
-  } else {
-    console.log("no scrubbed data");
-  }
-
-  if (!options.apiKey == "") {
-    await get_clima(options.apiKey);
-    await simpleStats(options.state);
-  } else {
-    console.log("We downloaded location data. Go to ClimaCell to get an API Key");
-    console.log(chalk.red.bold("Enter an API Key"));
-  }
+  let scrubedJSON = await filterJson();
+  await compareData(scrubedJSON);
+  await get_clima(options.apiKey);
+  simpleStats(options.state);
 }

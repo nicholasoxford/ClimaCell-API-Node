@@ -1,18 +1,17 @@
-import { loadJson, saveJSON } from "./jsonCRUD";
-var fs = require("fs");
+import { loadJson } from "./jsonCRUD";
+import chalk from "chalk";
 let z = "";
-
 export function simpleStats(state) {
   z = state;
-  let climaJSON = loadJson("clima-node/src/json/finaltemps.json");
+  const climaJSON = loadJson("clima-node/src/json/finaltemps.json");
   let temps = climaJSON.map((x) => parseFloat(x[0]));
   let maxT = arrayMax(temps);
   let minT = arrayMin(temps);
-  let arrAvg = average(temps);
+  let arrAvg = parseFloat(average(temps).toFixed(2));
   console.log("Welcome to " + state + "! The average temp right now is ", arrAvg);
   console.log("The Max Temp right now is: ", maxT);
   console.log("The Min Temp in right now is: ", minT);
-  console.log("This was based on " + climaJSON.length + " data samples!");
+  console.log("This was based on", chalk.green(climaJSON.length), "data samples!");
 }
 function arrayMin(arr) {
   var len = arr.length,

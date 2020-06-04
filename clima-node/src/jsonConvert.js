@@ -1,29 +1,24 @@
-import { saveJSON } from "./jsonCRUD";
+import { loadJson, saveJSON } from "./jsonCRUD";
 import chalk from "chalk";
-const fs = require("fs");
 // I used this code to download and filter
 // JSON location
 // data into a new new JSON file
 const scrubedData = [];
 const listOfRepeats = [];
 
-export function filterJson(filename) {
-  const newJson = loadJson(filename);
+export function filterJson() {
+  const newJson = loadJson("clima-node/src/json/website.json");
   parseJson(newJson);
-
-  function loadJson(filename = "") {
-    console.log(filename);
-    return JSON.parse(fs.existsSync(filename) ? fs.readFileSync(filename).toString() : '""');
-  }
+  return scrubedData;
   function parseJson(data) {
     // for loop to go through the the entire file and add to the empty arry
     // scrubed data only takes in the long, latitude, zip, and city.
-    data.forEach(longinData);
+    let c = data;
+    c.forEach(longinData);
     function longinData(element, index, array) {
       scrubedData.push([element.fields.longitude, element.fields.latitude, element.fields.zip, element.fields.city]);
     }
   }
-  return new Object(scrubedData);
 }
 //This checks if there are any repeats in long and latitude data
 export function compareData(jsonArray) {
@@ -43,15 +38,15 @@ export function compareData(jsonArray) {
       }
     }
   }
-  console.log("-");
-  console.log("--");
-  console.log("---");
+  console.log(chalk.blue("-"));
+  console.log(chalk.blue("--"));
+  console.log(chalk.blue("---"));
   console.log("Download + Filtering of location data is ", chalk.green.bold("done."));
-  console.log("The amount of repeats are: ", listOfRepeats.length);
-  console.log("The amount of unique long & latitiude data points: ", jsonArray.length);
-  console.log("---");
-  console.log("--");
-  console.log("-");
+  console.log("The amount of repeat locations is: ", listOfRepeats.length);
+  console.log("The amount of unique data points: is ", jsonArray.length);
+  console.log(chalk.blue("---"));
+  console.log(chalk.blue("--"));
+  console.log(chalk.blue("-"));
   saveJSON("clima-node/src/json/longLangByCity.json", scrubedData);
   saveJSON("clima-node/src/json/listOfRepeats.json", listOfRepeats);
 }
