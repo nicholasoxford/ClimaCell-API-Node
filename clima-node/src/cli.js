@@ -116,7 +116,7 @@ export async function cli(args) {
   let options = parseArgumentsIntoOptions(args);
   options = await promptForMissingOptions(options);
   await downloadJson(options.state);
-  let scrubedJSON = await filterJson();
+  let scrubedJSON = await filterJson("clima-node/src/json/website.json");
   if (scrubedJSON) {
     await compareData(scrubedJSON);
   } else {

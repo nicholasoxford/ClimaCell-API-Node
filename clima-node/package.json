@@ -1,6 +1,6 @@
 {
   "name": "@nicholasoxford/clima-node",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A CLI to get weather data for your state.",
   "main": "src/index.js",
   "bin": {

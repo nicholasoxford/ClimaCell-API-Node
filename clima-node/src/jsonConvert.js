@@ -1,15 +1,20 @@
-import { loadJson, saveJSON } from "./jsonCRUD";
+import { saveJSON } from "./jsonCRUD";
 import chalk from "chalk";
+const fs = require("fs");
 // I used this code to download and filter
 // JSON location
 // data into a new new JSON file
 const scrubedData = [];
 const listOfRepeats = [];
 
-export function filterJson() {
-  const newJson = loadJson("src/json/website.json");
+export function filterJson(filename) {
+  const newJson = loadJson(filename);
   parseJson(newJson);
 
+  function loadJson(filename = "") {
+    console.log(filename);
+    return JSON.parse(fs.existsSync(filename) ? fs.readFileSync(filename).toString() : '""');
+  }
   function parseJson(data) {
     // for loop to go through the the entire file and add to the empty arry
     // scrubed data only takes in the long, latitude, zip, and city.
@@ -47,6 +52,6 @@ export function compareData(jsonArray) {
   console.log("---");
   console.log("--");
   console.log("-");
-  saveJSON("src/json/longLangByCity.json", scrubedData);
-  saveJSON("src/json/listOfRepeats.json", listOfRepeats);
+  saveJSON("clima-node/src/json/longLangByCity.json", scrubedData);
+  saveJSON("clima-node/src/json/listOfRepeats.json", listOfRepeats);
 }

@@ -4,8 +4,7 @@ let z = "";
 
 export function simpleStats(state) {
   z = state;
-  let climaJSON;
-  climaJSON = loadJson("src/json/finaltemps.json");
+  let climaJSON = loadJson("clima-node/src/json/finaltemps.json");
   let temps = climaJSON.map((x) => parseFloat(x[0]));
   let maxT = arrayMax(temps);
   let minT = arrayMin(temps);
