@@ -19,7 +19,7 @@ export function downloadJson(state) {
   return downloadStream();
 
   async function downloadStream() {
-    const path = Path.resolve(__dirname, "json", "./website.json");
+    const path = Path.resolve(__dirname, "json", "./openDataSoft.json");
     const writer = fs.createWriteStream(path);
 
     const response = await Axios({

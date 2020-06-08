@@ -7,7 +7,7 @@ const scrubedData = [];
 const listOfRepeats = [];
 
 export function filterJson() {
-  const newJson = loadJson("clima-node/src/json/website.json");
+  const newJson = loadJson("clima-node/src/json/openDataSoft.json");
   parseJson(newJson);
   return scrubedData;
   function parseJson(data) {
@@ -43,7 +43,7 @@ export function compareData(jsonArray) {
   console.log(chalk.blue("---"));
   console.log("Download + Filtering of location data is ", chalk.green.bold("done."));
   console.log("The amount of repeat locations is: ", listOfRepeats.length);
-  console.log("The amount of unique data points: is ", jsonArray.length);
+  console.log("The amount of unique location is: ", jsonArray.length);
   console.log(chalk.blue("---"));
   console.log(chalk.blue("--"));
   console.log(chalk.blue("-"));
