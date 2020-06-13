@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 export function mongoWrite(listofTemps) {
   // make a connection
-  let uri = "mongodb+srv://weatheradmin:Pelo30337@cluster0-c4n9i.mongodb.net/weatherDB?retryWrites=true";
+  let uri = "mongodb+srv://weatheradmin:<INSERTPASSWORD>@cluster0-c4n9i.mongodb.net/weatherDB?retryWrites=true";
   mongoose.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true });
   // get reference to database
   var db = mongoose.connection;
