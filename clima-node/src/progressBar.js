@@ -10,7 +10,6 @@ module.exports = class ProgressBar {
   init(total) {
     this.total = total;
     this.current = 0;
-    this.update(this.current);
   }
 
   update(current) {

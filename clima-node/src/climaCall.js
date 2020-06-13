@@ -1,6 +1,6 @@
 import { loadJson, saveJSON } from "./jsonCRUD";
 import chalk from "chalk";
-import { mongoWrite } from "./dbWrite";
+
 const ProgressBar = require("./ProgressBar");
 
 var axios = require("axios");
@@ -12,17 +12,11 @@ export async function get_clima(api) {
   const Bar = new ProgressBar();
 
   let c;
-  let apiLimit = 4;
+  let apiLimit = 50;
   Bar.init(apiLimit);
 
   // console logs
-  console.log(chalk.blue("-"));
-  console.log(chalk.blue("--"));
-  console.log(chalk.blue("---"));
   console.log("", chalk.green.bold("Downloading weather data."));
-  console.log(chalk.blue("---"));
-  console.log(chalk.blue("--"));
-  console.log(chalk.blue("-"));
 
   for (c = 0; c < apiLimit; c++) {
     let n = c + 1;
@@ -31,7 +25,7 @@ export async function get_clima(api) {
       .get("https://api.climacell.co/v3/weather/realtime?lat=" + climaJSON[c][1].toString() + "&lon=" + climaJSON[c][0].toString() + "&unit_system=us&fields=temp%2Cfeels_like&apikey=" + apikey)
       .then((response) => {
         let z = JSON.stringify(response.data.temp.value);
-        let x = { temp: z, city: climaJSON[c][3], state: climaJSON[c][4], longitude: climaJSON[c][0], latitude: climaJSON[c][1] };
+        let x = { temp: z, city: climaJSON[c][3], state: climaJSON[c][4], longitude: climaJSON[c][0], latitude: climaJSON[c][1], date: new Date() };
         let n = [z, climaJSON[c][3], climaJSON[c][0], climaJSON[c][1]];
         mongoObj.push(x);
         listofTemps.push(n);
@@ -40,6 +34,7 @@ export async function get_clima(api) {
         console.log(error);
       });
   }
+  console.log("");
   saveJSON("clima-node/src/json/finaltemps.json", listofTemps);
   return mongoObj;
 }

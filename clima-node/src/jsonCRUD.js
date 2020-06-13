@@ -1,3 +1,5 @@
+import chalk from "chalk";
+
 var fs = require("fs");
 const Path = require("path");
 const Axios = require("axios");
@@ -21,7 +23,7 @@ export function downloadJson(state) {
   async function downloadStream() {
     const path = Path.resolve(__dirname, "json", "./openDataSoft.json");
     const writer = fs.createWriteStream(path);
-
+    console.log(chalk.bgBlueBright("Downloading Long + Lat Data for", state));
     const response = await Axios({
       url,
       method: "GET",
