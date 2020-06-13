@@ -4,6 +4,8 @@ import { filterJson, compareData } from "./jsonConvert";
 import { downloadJson } from "./jsonCRUD";
 import { get_clima } from "./climaCall";
 import { simpleStats } from "./stats";
+import { mongoWrite } from "./dbWrite";
+
 function parseArgumentsIntoOptions(rawArgs) {
   const args = arg(
     {
@@ -117,6 +119,7 @@ export async function cli(args) {
   await downloadJson(options.state);
   let scrubedJSON = filterJson();
   compareData(scrubedJSON);
-  await get_clima(options.apiKey);
+  let obj = await get_clima(options.apiKey);
   simpleStats(options.state);
+  mongoWrite(obj);
 }

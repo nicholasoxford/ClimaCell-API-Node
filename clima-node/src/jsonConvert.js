@@ -16,7 +16,7 @@ export function filterJson() {
     let c = data;
     c.forEach(longinData);
     function longinData(element, index, array) {
-      scrubedData.push([element.fields.longitude, element.fields.latitude, element.fields.zip, element.fields.city]);
+      scrubedData.push([element.fields.longitude, element.fields.latitude, element.fields.zip, element.fields.city, element.fields.state]);
     }
   }
 }
@@ -47,6 +47,6 @@ export function compareData(jsonArray) {
   console.log(chalk.blue("---"));
   console.log(chalk.blue("--"));
   console.log(chalk.blue("-"));
-  saveJSON("clima-node/src/json/longLangByCity.json", scrubedData);
+  saveJSON("clima-node/src/json/longLangByCity.json", jsonArray);
   saveJSON("clima-node/src/json/listOfRepeats.json", listOfRepeats);
 }
